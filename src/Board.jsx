@@ -10,6 +10,10 @@ function Board(props) {
     let gridClone = useRef([[]]);
     const delay = useRef(0);
     const [disabledSolve, setDisabledSolve] = useState(false);
+    const [disabledReset, setDisabledReset] = useState(false);
+    const [algo, setAlgo] = useState(0);
+    const test = "rgba(230, 181, 84)";
+    const confirm = "rgba(117, 223, 103)";
 
     //get invoke when there are chagnes in props, indicating that
     //the user has changed the size of the maze and new generation is needed
@@ -65,10 +69,33 @@ function Board(props) {
         let newGrid2 = copyGrid(newGrid);
         setGrid(newGrid2);
         setDisabledSolve(false);
+        setDisabledReset(true);
         delay.current = 0;
 
     }, [props.rows, props.cols,props.reGen]);
 
+    //reset our maze to the original state
+    function resetMaze(){
+        let newGrid = copyGrid(grid);
+        for (let i = 0; i < props.rows; i++) {
+            for (let j = 0; j < props.cols; j++) {
+                newGrid[i][j].property.backgroundColor = "rgb(239, 196, 196)";
+                if(!newGrid[i][j].wallUp)
+                    newGrid[i][j].property.borderTop = "2px solid rgb(239, 196, 196)";
+                if(!newGrid[i][j].wallDown)
+                    newGrid[i][j].property.borderBottom = "2px solid rgb(239, 196, 196)";
+                if(!newGrid[i][j].wallLeft)
+                    newGrid[i][j].property.borderLeft = "2px solid rgb(239, 196, 196)";
+                if(!newGrid[i][j].wallRight)
+                    newGrid[i][j].property.borderRight = "2px solid rgb(239, 196, 196)";
+            }
+        }
+        newGrid[0][0].property.borderTop = "4px solid rgb(239, 196, 196)";
+        newGrid[props.rows-1][props.cols - 1].property.borderBottom = "4px solid rgb(239, 196, 196)";
+        setDisabledReset(true);
+        setDisabledSolve(false);
+        setGrid(newGrid);
+    }
     //generating maze recursively
     function generatingMaze(newGrid, i, j) {
         newGrid[i][j].isVisited = true;
@@ -126,7 +153,6 @@ function Board(props) {
         }while(check != random);
        
     }
-
     //copy function to make a deep copy of the grid
     function copyGrid(grid){
         let newGrid = new Array(props.rows);
@@ -154,9 +180,131 @@ function Board(props) {
 
     //function to solve the maze
     function solveMaze(){
-        let test = "rgba(230, 181, 84)";
-        let confirm = "rgba(117, 223, 103)";
+        switch(algo){
+            case 0:
+                console.log("dijsktra");
+                dijkstra();
+                break;
+            case 1:
+                console.log("dfs");
+                dfs();
+                break;
+        }
+    }
+
+    //function to solve the maze using prim's algorithm
+    function dfs(){
+        //greying out the solve maze button
+        setDisabledSolve(true);
+        let newGrid = [[]];
+        //copy the grid to a new grid for solving the maze
+        for (let i = 0; i < props.rows; i++) {
+            newGrid[i] = new Array(props.cols);
+            for (let j = 0; j < props.cols; j++) {
+                newGrid[i][j] = {
+                    isVisited: false,
+                    wallUp: grid[i][j].wallUp,
+                    wallDown: grid[i][j].wallDown,
+                    wallLeft: grid[i][j].wallLeft,
+                    wallRight: grid[i][j].wallRight,
+                    parent: [-1,-1],
+                };
+            }
+        }
+
+        gridClone.current = copyGrid(grid);
+        newGrid[0][0].isVisited = true;
+        dfsHelper(newGrid,0,0,2);
+
+        let a = props.rows-1;
+        let b = props.cols-1;
+        let x,y;
+        let tracea = new Queue();
+        let traceb = new Queue();
+        let tracedir = new Queue();
+        tracedir.enqueue(3);
+        while(a != -1 && b != -1){
+            if(a != -1 && b != -1)
+            {   
+                tracea.enqueue(a);
+                traceb.enqueue(b);
+                delay.current += 1;
+                setTimeout(() => markGraph(confirm,tracea.dequeue(),traceb.dequeue(),tracedir.dequeue()),delay.current*100);
+            }
+
+
+            x = newGrid[a][b].parent[0];
+            y = newGrid[a][b].parent[1];
+            if(b+1 == y)
+                tracedir.enqueue(0)
+            else if(b-1 == y)
+                tracedir.enqueue(1)
+            else if(a+1 == x)
+                tracedir.enqueue(2)
+            else if(a-1 == x)    
+                tracedir.enqueue(3)
+            a = x;
+            b = y;
+        }
+
+        delay.current += 1;
+        setTimeout(() => {
+            gridClone.current[0][0].property.borderTop = "4px solid "+confirm;
+            let newGrid = copyGrid(gridClone.current);
+            setGrid(newGrid);
+            delay.current = 0;
+            setDisabledReset(false);
+        },delay.current*100);
+    }
+    function dfsHelper(newGrid,i,j,dir){
+        let stack = new Array();
+        delay.current += 1;
+        setTimeout(() => markGraph(test,i,j,dir),delay.current*100);
+        if(j<props.cols-1)
+        {
+            if(newGrid[i][j+1].isVisited == false && newGrid[i][j].wallRight == false)
+            {
+                stack.push([i,j+1,0]);
+            }
+        }
+        if(j>0)
+        {
+            if(newGrid[i][j-1].isVisited == false && newGrid[i][j].wallLeft == false)
+            {
+                stack.push([i,j-1,1]);
+            }
+        }
+        if(i<props.rows-1)
+        {
+            if(newGrid[i+1][j].isVisited == false && newGrid[i][j].wallDown == false)
+            {
+                stack.push([i+1,j,2]);
+            }
+        }
+        if(i>0)
+        {
+            if(newGrid[i-1][j].isVisited == false && newGrid[i][j].wallUp == false)
+            {
+                stack.push([i-1,j,3]);
+            }
+        }
+        while(stack.length > 0)
+        {
+            if(newGrid[props.rows - 1][props.cols - 1].isVisited == true)
+                break;
+            let [a,b,c] = stack.pop();
+            if(newGrid[a][b].isVisited == false)
+            {
+                newGrid[a][b].isVisited = true;
+                newGrid[a][b].parent = [i,j];
+                dfsHelper(newGrid,a,b,c);
+            }
+        }
         
+    }
+    function dijkstra(){
+        //greying out the solve maze button
+        setDisabledSolve(true);
         let newGrid = [[]];
         //copy the grid to a new grid for solving the maze
         for (let i = 0; i < props.rows; i++) {
@@ -193,12 +341,10 @@ function Board(props) {
                 let tracedir = new Queue();
                 tracedir.enqueue(3);
                 while(a != -1 && b != -1){
-                    console.log(tracedir.printQueue());
                     if(a != -1 && b != -1)
                     {   
                         tracea.enqueue(a);
                         traceb.enqueue(b);
-                        // console.log(`cell${a}${b}`);
                         delay.current += 1;
                         setTimeout(() => markGraph(confirm,tracea.dequeue(),traceb.dequeue(),tracedir.dequeue()),delay.current*100);
                     }
@@ -259,18 +405,16 @@ function Board(props) {
                 }
             }
         }
-
-        //greying out the solve maze button
-        setDisabledSolve(true);
-
-
+        
         delay.current += 1;
         setTimeout(() => {
             gridClone.current[0][0].property.borderTop = "4px solid "+confirm;
             let newGrid = copyGrid(gridClone.current);
             setGrid(newGrid);
             delay.current = 0;
+            setDisabledReset(false);
         },delay.current*100);
+        
     }
 
     //function to find the minimum distance in the grid
@@ -356,9 +500,21 @@ function Board(props) {
                     ))}
                 </div>
             ))}
-            <button onClick = {disabledSolve ? null : solveMaze} className={disabledSolve ? 'button2-disabled' : 'button2'}>
-                Solve Maze
-            </button>
+            <div className="options">
+                <label>Select an maze-solving algorithm: </label>
+                <select value={algo} onChange={(e) => {setAlgo(Number(e.target.value))}}>
+                        <option value={0}>Dijkstra's shortest path</option>
+                        <option value={1}>Depth first search</option>
+                </select>
+            </div>
+            <div>
+                <button onClick = {disabledSolve ? null : solveMaze} className={disabledSolve ? 'button2-disabled' : 'button2'}>
+                    Solve Maze
+                </button>
+                <button onClick = {disabledReset ? null : resetMaze} className={disabledReset ? 'button2-disabled' : 'button2'}>
+                    Reset
+                </button>
+            </div>
         </div>
     );
 }

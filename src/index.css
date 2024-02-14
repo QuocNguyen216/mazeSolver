@@ -81,3 +81,11 @@ body{
     box-shadow: 0 6px #999;
     transition: 0.5s;
 }
+
+.options {
+    color: rgba(229, 144, 144, 0.96);
+    font-size: 1em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 20px;
+    font-weight: bold;
+}
