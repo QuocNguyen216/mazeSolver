@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react"
 import Board from "./Board"
+import Database from "./Database";
+
 
 function App() {
+  let [curMaze,setCurMaze] = useState([[]]); 
   let [row,setRow] = useState(5);
   let [col,setCol] = useState(5);
   let [reGen,setReGen] = useState(1);
@@ -9,6 +12,7 @@ function App() {
   useEffect(() => {
     document.title = "Maze Solver";
   },[]);
+  
   function changeRow(e){
     setRow(e.target.value);
   }
@@ -24,7 +28,8 @@ function App() {
   return (
     <> 
       <h1 className = "title">Maze Solver</h1>
-      <Board reGen = {reGen} rows = {confirmedRow} cols = {confirmedCol} />  
+      <Database db = {curMaze} rows = {confirmedRow} cols = {confirmedCol} />
+      <Board reGen = {reGen} rows = {confirmedRow} cols = {confirmedCol} curMaze = {curMaze} setCurMaze = {setCurMaze} />  
       <div className="tray">
         <div>
           <label className="tag">Maze Size: </label>
@@ -39,4 +44,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

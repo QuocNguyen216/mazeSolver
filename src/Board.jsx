@@ -191,6 +191,22 @@ function Board(props) {
                 break;
         }
     }
+    function extractValue(){
+        let ans = new Array(props.rows);
+        for(let i = 0; i < props.rows; i++){
+            ans[i] = new Array(props.cols);
+            for(let j = 0; j < props.cols; j++){
+                ans[i][j] = {
+                    backgroundColor: grid[i][j].property.backgroundColor,
+                    wallUp: grid[i][j].wallUp,
+                    wallDown: grid[i][j].wallDown,
+                    wallLeft: grid[i][j].wallLeft,
+                    wallRight: grid[i][j].wallRight,
+                };
+            }
+        }
+        return ans;
+    }
 
     //function to solve the maze using prim's algorithm
     function dfs(){
@@ -254,6 +270,9 @@ function Board(props) {
             setGrid(newGrid);
             delay.current = 0;
             setDisabledReset(false);
+            //copy answer to array
+            let ans = extractValue();
+            props.setCurMaze(ans);
         },delay.current*100);
     }
     function dfsHelper(newGrid,i,j,dir){
@@ -413,6 +432,9 @@ function Board(props) {
             setGrid(newGrid);
             delay.current = 0;
             setDisabledReset(false);
+            //copy answer to array
+            let ans = extractValue();
+            props.setCurMaze(ans);
         },delay.current*100);
         
     }
