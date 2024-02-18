@@ -20,14 +20,38 @@ function LoginForm(props) {
             alert("Please enter a password");
             return;
         }
-        props.changeLogin();
+
+        if(username !== '' && password !== ''){
+            fetch('http://localhost:5000/mongo/connect', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    username: username,
+                    password: password
+                }),
+            }).then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if(data.login){
+                    props.setLogged(true);
+                    props.setCurElement(data.list);
+                    props.changeLogin();
+                }
+                else{
+                    alert("Error connecting to MongoDB!");
+                    
+                }
+            });
+        }
 
     }
 
 
     return (
         <div className="logPrompt">
-            <div className="logPromptInner">
+            <div className="logPromptInner" style = {{color: "black"}}>
                 <h2>Login</h2>
                 <form onSubmit={handleLogin}>
                     <label>

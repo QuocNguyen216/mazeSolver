@@ -92,6 +92,7 @@ function Board(props) {
         }
         newGrid[0][0].property.borderTop = "4px solid rgb(239, 196, 196)";
         newGrid[props.rows-1][props.cols - 1].property.borderBottom = "4px solid rgb(239, 196, 196)";
+        gridClone.current = copyGrid(newGrid);
         setDisabledReset(true);
         setDisabledSolve(false);
         setGrid(newGrid);
@@ -182,11 +183,11 @@ function Board(props) {
     function solveMaze(){
         switch(algo){
             case 0:
-                console.log("dijsktra");
+                //console.log("dijsktra");
                 dijkstra();
                 break;
             case 1:
-                console.log("dfs");
+                //console.log("dfs");
                 dfs();
                 break;
         }
@@ -196,12 +197,13 @@ function Board(props) {
         for(let i = 0; i < props.rows; i++){
             ans[i] = new Array(props.cols);
             for(let j = 0; j < props.cols; j++){
+                //console.log(grid[i][j].property.backgroundColor);
                 ans[i][j] = {
-                    backgroundColor: grid[i][j].property.backgroundColor,
-                    wallUp: grid[i][j].wallUp,
-                    wallDown: grid[i][j].wallDown,
-                    wallLeft: grid[i][j].wallLeft,
-                    wallRight: grid[i][j].wallRight,
+                    backgroundColor: gridClone.current[i][j].property.backgroundColor,
+                    borderTop: gridClone.current[i][j].property.borderTop,
+                    borderBottom: gridClone.current[i][j].property.borderBottom,
+                    borderLeft: gridClone.current[i][j].property.borderLeft,
+                    borderRight: gridClone.current[i][j].property.borderRight,
                 };
             }
         }
@@ -272,7 +274,12 @@ function Board(props) {
             setDisabledReset(false);
             //copy answer to array
             let ans = extractValue();
-            props.setCurMaze(ans);
+            props.setCurMaze({
+                grid: ans,
+                algorithm: "dfs",
+                rows: props.rows,
+                cols: props.cols,
+            });
         },delay.current*100);
     }
     function dfsHelper(newGrid,i,j,dir){
@@ -434,7 +441,12 @@ function Board(props) {
             setDisabledReset(false);
             //copy answer to array
             let ans = extractValue();
-            props.setCurMaze(ans);
+            props.setCurMaze({
+                grid: ans,
+                algorithm: "dijkstra",
+                rows: props.rows,
+                cols: props.cols,
+            });
         },delay.current*100);
         
     }
@@ -506,11 +518,13 @@ function Board(props) {
     
 
     return (
-        <div className = "Gridtray"> 
+        <div className = "Gridtray" style = {{
+            minWidth: (props.rows*50 + 100) + "px", 
+        }}> 
             {grid.map((row, i) => (
                 <div key={i}>
                     {row.map((col, j) => (
-                        <button key={j} id = {`cell${i}${j}`} className = "cell" style = {{
+                        <button key={j} className = "cell" style = {{
                             borderTop: grid[i][j].property.borderTop,
                             borderBottom: grid[i][j].property.borderBottom,
                             borderLeft: grid[i][j].property.borderLeft,

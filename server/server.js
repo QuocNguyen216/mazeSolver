@@ -1,34 +1,18 @@
 const express = require("express");
-
-
-//it will attach all values in env file to process object
+const cors = require('cors');
+const app = express();
+const mongoRoute = require("./routes/mongo");
+app.use(cors({
+    origin: 'http://localhost:5173' // or your React app's origin
+  }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 require("dotenv").config();
 
-//express ap
-const app = express();
 
-//router
-const workoutRouter = require("./routes/record");
-
-//middleware
-app.use(express.json());
-
-//middleware
-app.use((req,res, next) =>{
-    console.log(req.path, req.method);
-    next();
-})
+app.use("/mongo", mongoRoute);
 
 
-//listen for requests
 app.listen(process.env.PORT, () => {
-  console.log(`Server is listening on port ${process.env.PORT} fuck off`);
+    console.log(`Server is running on port ${process.env.PORT}`);
 });
-
-
-app.use('/api/workouts',workoutRouter);
-
-// // routes 
-// app.get('/', (req,res)=>{
-//     res.json({msg:"Welcome to the app"});
-// });
