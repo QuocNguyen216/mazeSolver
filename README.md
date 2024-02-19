@@ -7,6 +7,10 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-# mazeSolver
-A maze solving program that used multiple different algorithm to solve the maze
 
+# Maze Solver
+A maze-solving program that used multiple different algorithms to solve the maze and save mazes on MongoDB. 
+DEMO: (Will insert a YouTube video)
+Dijkstra algorithm:
+  
+# Project description:
