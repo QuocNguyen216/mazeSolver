@@ -1,5 +1,6 @@
 import {useState} from "react";
 
+/* A simple login popup prompt for the user to input data */
 function LoginForm(props) {
     
     const [username, setUsername] = useState('');

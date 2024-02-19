@@ -1,5 +1,7 @@
 import styles from "./Database.module.css";
 
+
+/* This component handle generating a small version of the board for display purpose within our database */
 function SmallBoard(props) {
 
   return (

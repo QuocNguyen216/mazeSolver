@@ -5,7 +5,6 @@ import styles from "./Database.module.css";
 import SearchForm from "./SearchForm";
 import mongodbImage from './images/mongodb.jpg';
 
-const uri = "mongodb+srv://tuanqn2901:123456456Tu!@mazestorage.g81b7ci.mongodb.net/?retryWrites=true&w=majority";
 function Database(props){
     
     const [search, setSearch] = useState(false);
@@ -17,6 +16,9 @@ function Database(props){
     const [searchString, setSearchString] = useState('');
     const [refresh, setRefresh] = useState(false);
 
+    /*
+        We query the database if we detect any changes or just forcefully refesh it using the refresh variable
+     */
     useEffect(() => {
         console.log(searchString);
         fetch('http://localhost:5000/mongo/search', {
@@ -35,7 +37,9 @@ function Database(props){
     function changeLogin(){
         setLogin(!login);
     }
-
+    /**
+     This function send a signout request to our mongodb server
+     */
     function signout(){
         fetch('http://localhost:5000/mongo/signout', {
                 method: 'GET',
@@ -57,6 +61,9 @@ function Database(props){
             );
     }
     
+    /**
+     This function send a request to our mongodb server, asking it to put our board inside the database
+     */
     function saveBoard(){
         if(logged){
             fetch('http://localhost:5000/mongo/insert', {
@@ -94,6 +101,11 @@ function Database(props){
         }
     }
 
+
+    /**
+        This function delete the board that was selected to be deleted. It send data relating to
+        that board and the server will delete that board. It will then refesh our GUI
+     */
     function deleteBoard(i){
         console.log(i);
         if(logged){

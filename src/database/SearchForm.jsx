@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Database.module.css';
 
-
+/* A search form for user to search various attribute within our database */
 function searchForm(props) {
     const [row, setRow] = useState(0);
     const [col, setCol] = useState(0);
@@ -11,7 +11,7 @@ function searchForm(props) {
         let size = false;
         let search = "{";
         if(row > 0 && col > 0){
-            search = search + `"rows" : ${String(row)}, "cols" :${String(col)}`;
+            search = search + `"rows" : ${String(row)}, "cols" :${String(col)},`;
             size = true;
         }
         else if(row > 0){

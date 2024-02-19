@@ -14,9 +14,10 @@ function Board(props) {
     const [algo, setAlgo] = useState(0);
     const test = "rgba(230, 181, 84)";
     const confirm = "rgba(117, 223, 103)";
-
-    //get invoke when there are chagnes in props, indicating that
-    //the user has changed the size of the maze and new generation is needed
+    /*
+        Get invoke when there are chagnes in props, indicating that
+        the user has changed the size of the maze and new generation is needed
+    */
     useEffect(() => {
         //Here we are creating a 2D array of objects, each object contains
         //properties of each cell in our maze
@@ -97,7 +98,9 @@ function Board(props) {
         setDisabledSolve(false);
         setGrid(newGrid);
     }
-    //generating maze recursively
+    /*
+        Generating maze recursively using BFS by starting in the middle.
+    */
     function generatingMaze(newGrid, i, j) {
         newGrid[i][j].isVisited = true;
         let random = Math.floor(Math.random() * 4);
@@ -154,7 +157,11 @@ function Board(props) {
         }while(check != random);
        
     }
-    //copy function to make a deep copy of the grid
+    /*
+        This function is to copy a grid and return a new completely different grid. This is to
+        Safely modify the maze variable without worrying about changes in the actual maze
+        For delaying and creating solving animation for the maze.
+     */
     function copyGrid(grid){
         let newGrid = new Array(props.rows);
         for (let i = 0; i < props.rows; i++) {
@@ -179,7 +186,9 @@ function Board(props) {
         return newGrid;
     }
 
-    //function to solve the maze
+    /*
+        Entry point for solving the maze, deciding which method to use
+     */
     function solveMaze(){
         switch(algo){
             case 0:
@@ -192,12 +201,16 @@ function Board(props) {
                 break;
         }
     }
+
+    /*
+        A helper function to get the result board out and pass it to the current maze, making a copy of
+        the current grid
+     */
     function extractValue(){
         let ans = new Array(props.rows);
         for(let i = 0; i < props.rows; i++){
             ans[i] = new Array(props.cols);
             for(let j = 0; j < props.cols; j++){
-                //console.log(grid[i][j].property.backgroundColor);
                 ans[i][j] = {
                     backgroundColor: gridClone.current[i][j].property.backgroundColor,
                     borderTop: gridClone.current[i][j].property.borderTop,
@@ -210,7 +223,11 @@ function Board(props) {
         return ans;
     }
 
-    //function to solve the maze using prim's algorithm
+    /*
+        This function solve the maze using depth first search, trying out different paths until it hit a 
+        dead end. Used a queue to keep track the path that we have succesfully try. We used a stack later
+        within the DFS helper to actually recursively search the maze.
+     */
     function dfs(){
         //greying out the solve maze button
         setDisabledSolve(true);
@@ -266,6 +283,8 @@ function Board(props) {
         }
 
         delay.current += 1;
+        
+        //Final step
         setTimeout(() => {
             gridClone.current[0][0].property.borderTop = "4px solid "+confirm;
             let newGrid = copyGrid(gridClone.current);
@@ -282,6 +301,11 @@ function Board(props) {
             });
         },delay.current*100);
     }
+
+    /* 
+        Helper method for DFS that recursively search the maze, trying a new path by popping the stack after 
+        hitting a dead end 
+    */
     function dfsHelper(newGrid,i,j,dir){
         let stack = new Array();
         delay.current += 1;
@@ -328,6 +352,12 @@ function Board(props) {
         }
         
     }
+
+    /*
+        Dijkstra algorithm that used a queue to keep track of the next shortest path
+        It is similar to BFS but with a more greedy approach. We don't need the weight between
+        each node in the graph since they can reach the next node by the cost of one.
+     */
     function dijkstra(){
         //greying out the solve maze button
         setDisabledSolve(true);
@@ -451,7 +481,9 @@ function Board(props) {
         
     }
 
-    //function to find the minimum distance in the grid
+    /*
+        This is a helper function for dijkstra to find the current shortest path to the next element
+     */
     function findMin(newGrid){
         let min = Number.MAX_VALUE;
         let a = -1, b = -1;
@@ -466,9 +498,10 @@ function Board(props) {
         }
         return [a,b];
     }
-
-    //function to update the color of the cell, indicating either a a true path
-    //or a the steps which the algorithm has taken
+    /*
+        Function to update the color of the cell, indicating either a a true path
+        or a the steps which the algorithm has taken
+    */
     function markGraph(color,i,j,dir){
         switch(dir){
             //right
@@ -519,8 +552,11 @@ function Board(props) {
 
     return (
         <div className = "Gridtray" style = {{
-            minWidth: (props.rows*50 + 100) + "px", 
+            minWidth: (props.cols*50 + 100) + "px", 
         }}> 
+            <div style = {{ 
+            transform: `scale(${props.cols>15 || props.rows>15 ? 0.7 : 1})`,
+            }}> 
             {grid.map((row, i) => (
                 <div key={i}>
                     {row.map((col, j) => (
@@ -536,6 +572,7 @@ function Board(props) {
                     ))}
                 </div>
             ))}
+            </div>
             <div className="options">
                 <label>Select an maze-solving algorithm: </label>
                 <select value={algo} onChange={(e) => {setAlgo(Number(e.target.value))}}>
