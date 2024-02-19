@@ -49,7 +49,9 @@ function App() {
           <Board reGen = {reGen} rows = {confirmedRow} cols = {confirmedCol} curMaze = {curMaze} setCurMaze = {setCurMaze} />  
           <div className="tray">
             <div>
-              <p className="tag" style = {{fontSize: "13px"}}>Hint: value between 0 and 20</p>
+              <p className="tag" style = {{
+                fontSize: "13px", color: "whitesmoke"
+                }}>Hint: value between 0 and 20</p>
               <label className="tag">Maze Size: </label>
               <input type="number" max = {20} value = {row} className="gridIn" placeholder="rows" onChange={e => changeRow(e)}></input>
               <label> x </label>

@@ -27,7 +27,8 @@ function searchForm(props) {
                 search = search+ ",";    
             search = search + (algo === 1 ? `"algorithm" : "dfs",` : `"algorithm" : "dijkstra",`);
         }
-        search = search.substring(0,search.length-1);
+        if(search.length > 2)
+            search = search.substring(0,search.length-1);
         search = search +"}";
         props.setSearchString(search);
         props.setRefresh(!props.refresh);

@@ -95,10 +95,17 @@ router.post("/search",async (req,res) =>{
 });
 
 router.post("/delete",async (req,res) =>{
-  console.log(req.body);
+  let deleteObj = {
+    grid: req.body.grid,
+    rows: req.body.rows,
+    cols: req.body.cols,
+    algorithm: req.body.algorithm
+  };
+  let deleted;
   try{
-    await client.db("MazeStorage").collection("Mazes").deleteOne(req.body);
-    res.send({data: "good"});
+    deleted = await client.db("MazeStorage").collection("Mazes").deleteOne(deleteObj);
+    res.send({data: "good",
+              deleted : deleted});
   }
   catch(e){
     console.log(e);

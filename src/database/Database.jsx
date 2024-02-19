@@ -18,7 +18,7 @@ function Database(props){
     const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
-        // console.log(searchString);
+        console.log(searchString);
         fetch('http://localhost:5000/mongo/search', {
             method: 'POST',
             headers: {
@@ -94,10 +94,37 @@ function Database(props){
         }
     }
 
+    function deleteBoard(i){
+        console.log(i);
+        if(logged){
+            fetch('http://localhost:5000/mongo/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(curElement[i]), 
+            }).then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if(data.data !== "good"){
+                    alert("Error deleting board");
+                }
+                else{
+                    console.log("Board deleted");
+                    setRefresh(!refresh);
+                    alert("Board deleted");
+                }
+            });
+        }
+        else{
+            alert("You must log in to delete the board");
+        }
+    }
+
     return (
         <div style = {{
-            minWidth: "550px",
-            maxWidth: "550px",
+            minWidth: "600px",
+            maxWidth: "600px",
             color: "beige",
         }}>
             {logged ? <h1>Hello, {username}</h1> : null}
@@ -125,9 +152,15 @@ function Database(props){
                 <button onClick = {() => setRefresh(!refresh)}className = {styles.refresh}></button>
                 {search ? <SearchForm setSearch = {setSearch} setSearchString = {setSearchString}
                 refresh = {refresh} setRefresh = {setRefresh}/> : null}
-                <div className = {styles.list}>
+                <div className = {styles.list}>            
                     {curElement.map((element, i) => (
-                        <div key={i}>
+                        <div key={i} style = {{marginLeft: "40px"}}>
+                            <button onClick = {() => deleteBoard(i)} className = {styles.delete}></button>
+                            <label style={{
+                                fontSize: "1.5em",
+                                color: "whitesmoke",
+                            
+                            }}>  Board: {i}</label><br></br>
                             <SmallBoard db = {element}/>
                         </div>
                     ))}
