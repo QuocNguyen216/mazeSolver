@@ -9,11 +9,11 @@ Currently, two official plugins are available:
 
 
 # Maze Solver
-A maze-solving program that used multiple different algorithms to solve the maze and save mazes on MongoDB. 
-DEMO: (Will insert a YouTube video)
-Dijkstra algorithm:
+A maze-solving program that used multiple different algorithms to solve the maze and save mazes on MongoDB. <br>
+DEMO: (Will insert a YouTube video)<br>
+Dijkstra algorithm:<br>
 ![](https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/dijkstra.gif)
-Depth-first search algorithm:
+Depth-first search algorithm:<br>
 ![](https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/dfs.gif)
   
 # Project description:
