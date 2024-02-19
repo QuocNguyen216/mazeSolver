@@ -12,6 +12,7 @@ Currently, two official plugins are available:
 A maze-solving program that used multiple different algorithms to solve the maze and save mazes on MongoDB. <br>
 DEMO: (Will insert a YouTube video)<br>
 Dijkstra algorithm:<br>
+<img src="[/images/output/video1.gif](https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/dijkstra.gif)" width="250" height="250"/>
 ![](https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/dijkstra.gif)
 Depth-first search algorithm:<br>
 ![](https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/dfs.gif)
