@@ -16,17 +16,20 @@ In the context of a maze, Dijkstra's algorithm treats the edge between the curre
 
 # Demo of the database features
 User authentication when logging in: <br>
-<img src="https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/login.gif" width="300"> <br>
+<img src="https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/login.gif" width="500"> <br>
 As shown in the demo, you can also log out of your database using the signout option. Logging in will also display all of your currently saved boards within the database below. 
 
 After successfully logging on, you can then have the option to save the current solved board onto the database. As you press save, the newly added board will be displayed below your current query (if your current query options match the saved board): <br>
-<img src="https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/savingBoard.gif" width="300"> <br>
+<img src="https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/savingBoard.gif" width="500"> <br>
 
 The list below shows the current queried board. You can remove any of the boards by using the corresponding delete button, which is on the left corner above each board. <br>
-<img src="https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/delete.gif" width="300"> <br>
+<img src="https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/deleteBoard.gif" width="500"> <br>
 
+Within the database features, you can also search for a particular maze size within the data by using the search icon and inputting the sizes. By default, the size of 0 means that you don't want to use that attribute within your search. For example, searching for all records that have a height of 5 will be 5x0. Here is a demo of a search using maze size:<br>
+<img src="https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/searchSize.gif" width="500"> <br>
 
-<img src="https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/searchSize.gif" width="300"> <br>
+To search for a particular algorithm, you can select the algorithm using the search prompt:<br>
+<img src="https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/searchDijkstra.gif" width="500"> <img src="https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/searchDFS.gif" width="500"><br>
 
 # React + Vite
 
