@@ -7,6 +7,7 @@ import mongodbImage from './images/mongodb.jpg';
 
 function Database(props){
     
+    const server = "https://maze-server-bgns.onrender.com";
     const [search, setSearch] = useState(false);
     const [curElement, setCurElement] = useState([]);
     const [login, setLogin] = useState(false);
@@ -21,7 +22,7 @@ function Database(props){
      */
     useEffect(() => {
         console.log(searchString);
-        fetch('http://localhost:5000/mongo/search', {
+        fetch(`${server}/mongo/search`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -41,7 +42,7 @@ function Database(props){
      This function send a signout request to our mongodb server
      */
     function signout(){
-        fetch('http://localhost:5000/mongo/signout', {
+        fetch(`${server}/mongo/signout`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -66,7 +67,7 @@ function Database(props){
      */
     function saveBoard(){
         if(logged){
-            fetch('http://localhost:5000/mongo/insert', {
+            fetch(`${server}/mongo/insert`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -109,7 +110,7 @@ function Database(props){
     function deleteBoard(i){
         console.log(i);
         if(logged){
-            fetch('http://localhost:5000/mongo/delete', {
+            fetch(`${server}/mongo/delete`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -2,7 +2,7 @@ import {useState} from "react";
 
 /* A simple login popup prompt for the user to input data */
 function LoginForm(props) {
-    
+    const server = "https://maze-server-bgns.onrender.com";
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -23,7 +23,7 @@ function LoginForm(props) {
         }
 
         if(username !== '' && password !== ''){
-            fetch('http://localhost:5000/mongo/connect', {
+            fetch(`${server}/mongo/connect`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
