@@ -10,7 +10,7 @@ function searchForm(props) {
         e.preventDefault();
         let search = "{";
         if(row > 0 && col > 0){
-            search = search + `"rows" : ${String(row)}, "cols" :${String(col)},`;
+            search = search + `"rows" : ${String(row)}, "cols" : ${String(col)},`;
         }
         else if(row > 0){
             search = search + `"rows" : ${String(row)},`;
