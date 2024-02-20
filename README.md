@@ -9,9 +9,9 @@ MazeMaster's intuitive web interface is user-friendly, catering to maze enthusia
 
 # Demo of the algorithms
 
-Djiktra:<br>
+In the context of a maze, Dijkstra's algorithm treats the edge between the current node to the other neighbor nodes as weighting 1 unit, which helps the algorithm to choose and calculate the next shortest path to a new node between iterations. The algorithm explores all possible routes from the starting point, updating the shortest distance to each node. By prioritizing nodes with the lowest cumulative distance from the start and ensuring each node is visited only once, Dijkstra's algorithm can identify the shortest path to the endpoint. <br>
 <img src="https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/dijkstra.gif" width="300">
-<br>DFS:<br>
+<br>To solve the maze, DFS starts at the entrance and explores along a path until it reaches a dead end or the maze's exit. If a dead end is encountered, the algorithm backtracks and tries a different path. This process continues until the endpoint is found. It's worth noting that while DFS can solve a maze, it does not necessarily find the shortest path.<br>
 <img src="https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/dfs.gif" width="300">
 
 # Demo of the database features
