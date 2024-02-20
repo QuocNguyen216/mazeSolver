@@ -1,4 +1,4 @@
-# MazeSolver
+# MazeSolver (Overview)
 MazeSolver is a web application designed to generate, solve, and store complex mazes. MazeSolver is a sophisticated algorithmic core that utilizes Breadth-First Search (BFS) for maze generation, randomly selecting the next node to ensure a randomized maze upon each refresh. Therefore, each generated maze has a unique solution with no inaccessible areas, providing a challenging and engaging experience. <br>
 
 Once a maze is generated, users have the option to solve it using one of two distinct algorithms: Dijkstra's algorithm or Depth-First Search (DFS). Dijkstra's algorithm is renowned for finding the shortest path in a weighted graph, making it ideal for solving mazes with varied path costs. On the other hand, DFS offers a more straightforward approach, exploring as far as possible along each branch before backtracking, which is fascinating to observe in mazes with many branches.<br>
