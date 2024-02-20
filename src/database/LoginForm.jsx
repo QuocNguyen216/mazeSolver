@@ -1,7 +1,10 @@
-import {useState} from "react";
+import {useRef, useState} from "react";
+import loadingGIF from './images/loading.gif';
 
 /* A simple login popup prompt for the user to input data */
 function LoginForm(props) {
+    const [loading, setLoading] = useState(false);
+    let timeOutID = useRef(-1);
     const server = "https://maze-server-bgns.onrender.com";
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -39,12 +42,22 @@ function LoginForm(props) {
                     props.setLogged(true);
                     props.setCurElement(data.list);
                     props.changeLogin();
+                    clearTimeout(timeOutID);
+                    timeOutID = -1;
+                    setLoading(false);
                 }
                 else{
                     alert("Error connecting to MongoDB!");
-                    
+                    clearTimeout(timeOutID);
+                    timeOutID = -1;
+                    setLoading(false);
                 }
             });
+            setLoading(true);
+            timeOutID = setTimeout(() => {
+                setLoading(false);
+                timeOutID = -1;
+            },60000);
         }
 
     }
@@ -53,6 +66,17 @@ function LoginForm(props) {
     return (
         <div className="logPrompt">
             <div className="logPromptInner" style = {{color: "black"}}>
+                {loading ?   
+                <div className="logPrompt">
+                    <div className="logPromptInner" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: "70px" }}>
+                        <form>
+                            <img src={loadingGIF} alt="loading"></img>
+                        </form>
+                    </div>
+                </div>
+                : null
+                }
+                
                 <h2>Login</h2>
                 <form onSubmit={handleLogin}>
                     <label>

@@ -31,7 +31,7 @@ function Database(props){
         }).then(response => response.json()
         ).then(data => {
             console.log(data);
-            setCurElement(data.list);
+            setCurElement(data.list.reverse());
         });
     },[searchString, refresh]);
 
@@ -173,7 +173,7 @@ function Database(props){
                                 fontSize: "1.5em",
                                 color: "whitesmoke",
                             
-                            }}>  Board: {i}</label><br></br>
+                            }}>  Board ID: {element._id}</label><br></br>
                             <SmallBoard db = {element}/>
                         </div>
                     ))}
