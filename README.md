@@ -19,8 +19,9 @@ MazeMaster's intuitive web interface is user-friendly, catering to maze enthusia
 # Demo of the algorithms
 
 Djiktra:<br>
-{<img src="https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/dfs.gif" width="150">}
-
+{<img src="https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/dijkstra.gif" width="300">}
+DFS:<br>
+{<img src="https://github.com/QuocNguyen216/mazeSolver/blob/master/GIFstorage/dfs.gif" width="300">}
 
 
 
