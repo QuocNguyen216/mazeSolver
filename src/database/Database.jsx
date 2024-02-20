@@ -20,7 +20,7 @@ function Database(props){
         We query the database if we detect any changes or just forcefully refesh it using the refresh variable
      */
     useEffect(() => {
-        console.log(searchString);
+        // console.log(searchString);
         fetch('http://localhost:5000/mongo/search', {
             method: 'POST',
             headers: {

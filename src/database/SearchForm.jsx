@@ -8,23 +8,17 @@ function searchForm(props) {
     const [algo, setAlgo] = useState(0);
     function changeString(e){
         e.preventDefault();
-        let size = false;
         let search = "{";
         if(row > 0 && col > 0){
             search = search + `"rows" : ${String(row)}, "cols" :${String(col)},`;
-            size = true;
         }
         else if(row > 0){
-            search = search + `"row" : ${String(row)},`;
-            size = true;
+            search = search + `"rows" : ${String(row)},`;
         }
         else if(col > 0){
             search = search + `"cols" : ${String(col)},`;
-            size = true;
         }
-        if(algo !== 2){
-            if(size)
-                search = search+ ",";    
+        if(algo !== 2){  
             search = search + (algo === 1 ? `"algorithm" : "dfs",` : `"algorithm" : "dijkstra",`);
         }
         if(search.length > 2)
