@@ -9,6 +9,13 @@ function searchForm(props) {
     function changeString(e){
         e.preventDefault();
         let search = "{";
+
+        if(row>20 || row < 0 || col>20 || col < 0 )
+        {
+            alert("Invalid row or col input!");
+            return;
+        }
+
         if(row > 0 && col > 0){
             search = search + `"rows" : ${String(row)}, "cols" : ${String(col)},`;
         }
@@ -34,9 +41,9 @@ function searchForm(props) {
                     <h2 className = {styles.searchHeader}>Search prompt</h2>
                     <form onSubmit={changeString}>
                         <label>Maze Size: </label>
-                        <input type="number" value = {row} className="gridIn" placeholder="rows" onChange={e => setRow(e.target.value)}></input>
+                        <input type="number" min = {1} max = {20} value = {row} className="gridIn" placeholder="rows" onChange={e => setRow(e.target.value)}></input>
                         <label> x </label>
-                        <input type="number" value = {col} className="gridIn" placeholder="cols" onChange={e => setCol(e.target.value)}></input><br></br>
+                        <input type="number" min = {1} max = {20} value = {col} className="gridIn" placeholder="cols" onChange={e => setCol(e.target.value)}></input><br></br>
                         <label>Maze-solving algorithm: </label>
                         <select value={algo} style = {
                             {fontSize: "1em",}

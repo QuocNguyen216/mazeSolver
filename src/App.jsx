@@ -38,6 +38,11 @@ function App() {
   //This is for the onClick button Generate Maze
   //It automatically change the regen to regenerate the maze everytime we clicked it
   function generateMaze(e){
+    if(row>20 || row < 0 || col>20 || col < 0 )
+    {
+      alert("Invalid row or col input!");
+      return;
+    }
     setCC(col);
     setCR(row);
     setReGen(() => reGen+1);
@@ -69,9 +74,9 @@ function App() {
                 fontSize: "13px", color: "whitesmoke"
                 }}>Hint: value between 0 and 20</p>
               <label className="tag">Maze Size: </label>
-              <input type="number" max = {20} value = {row} className="gridIn" placeholder="rows" onChange={e => changeRow(e)}></input>
+              <input type="number" min = {1} max = {20} value = {row} className="gridIn" placeholder="rows" onChange={e => changeRow(e)}></input>
               <label> x </label>
-              <input type="number" max = {20} value = {col} className="gridIn" placeholder="cols" onChange={e => changeCol(e)}></input>
+              <input type="number" min = {1} max = {20} value = {col} className="gridIn" placeholder="cols" onChange={e => changeCol(e)}></input>
             </div>
             <button onClick = {generateMaze}className="button2">Generate Maze</button>
           </div> 
