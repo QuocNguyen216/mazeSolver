@@ -1,5 +1,5 @@
 # MazeSolver (Overview) 
-## Link to test the project:<br> https://quocnguyen216.github.io/mazeSolver/?fbclid=IwAR27IT_9LCtb8UnHXWHtMLbfcheGwH-m8RVZY6S20Nj6qDgXnAv-8ew2tGY
+## Link to test the project:<br> https://quocnguyen216.github.io/mazeSolver/?fbclid=IwAR27IT_9LCtb8UnHXWHtMLbfcheGwH-m8RVZY6S20Nj6qDgXnAv-8ew2tGY<br>Note: username and password for the server is hidden for security reasons, please download the code and change MongoDB database to your database for personal usage.
 MazeSolver is a web application designed to generate, solve, and store mazes. MazeSolver utilizes Breadth-First Search (BFS) for maze generation, randomly selecting the next node to ensure a randomized maze upon each refresh. Therefore, each generated maze has a unique solution with no inaccessible areas, providing a challenging and engaging experience. <br>
 
 Once a maze is generated, users have the option to solve it using one of two distinct algorithms: Dijkstra's algorithm or Depth-First Search (DFS). Dijkstra's algorithm is renowned for finding the shortest path in a weighted graph, making it ideal for solving mazes. On the other hand, DFS offers a more straightforward approach, exploring each branch as far as possible before backtracking, which is fascinating to observe in mazes with many branches.<br>
@@ -36,12 +36,11 @@ For more flexibility, you can filter your search by combining maze size and algo
 The purpose of storing the boards is to examine and evaluate the efficiency of each algorithm. You can collect data, filter boards, and add more boards to your database for further analysis. 
 # React + Vite + NodeJS + ExpressJS + MongoDB
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 
 
 ## Available Scripts
 
@@ -51,6 +50,8 @@ In the project directory, you can run:
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+Note, I have included the code for the back-end server inside the server folder. you can also use the above command to start the server after installing the dependencies. 
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
@@ -109,6 +110,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
 
 
 
