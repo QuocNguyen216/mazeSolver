@@ -1,5 +1,5 @@
 # MazeSolver (Overview) 
-## Link to test the project https://quocnguyen216.github.io/mazeSolver/?fbclid=IwAR27IT_9LCtb8UnHXWHtMLbfcheGwH-m8RVZY6S20Nj6qDgXnAv-8ew2tGY
+## Link to test the project:<br> https://quocnguyen216.github.io/mazeSolver/?fbclid=IwAR27IT_9LCtb8UnHXWHtMLbfcheGwH-m8RVZY6S20Nj6qDgXnAv-8ew2tGY
 MazeSolver is a web application designed to generate, solve, and store mazes. MazeSolver utilizes Breadth-First Search (BFS) for maze generation, randomly selecting the next node to ensure a randomized maze upon each refresh. Therefore, each generated maze has a unique solution with no inaccessible areas, providing a challenging and engaging experience. <br>
 
 Once a maze is generated, users have the option to solve it using one of two distinct algorithms: Dijkstra's algorithm or Depth-First Search (DFS). Dijkstra's algorithm is renowned for finding the shortest path in a weighted graph, making it ideal for solving mazes. On the other hand, DFS offers a more straightforward approach, exploring each branch as far as possible before backtracking, which is fascinating to observe in mazes with many branches.<br>
